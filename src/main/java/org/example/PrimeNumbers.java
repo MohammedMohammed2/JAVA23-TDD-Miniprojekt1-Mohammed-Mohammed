@@ -1,8 +1,6 @@
 package org.example;
 
-import java.util.Scanner;
-
-public class Main {
+public class PrimeNumbers {
 
     static int previousPrimeNumber = 0;
     static int sumOfPrimeNums = 0;
