@@ -19,6 +19,7 @@ class PrimeNumbersTest {
         assertTrue(primeNumbers.isPrime(997), "this is  prime");
     }
     @Test
+    @DisplayName("test if the system out print is correct for the total amount of prime numbers")
     public void testPrintSum() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
@@ -27,6 +28,7 @@ class PrimeNumbersTest {
         assertEquals("the sum of all prime numbers is:76127", outContent.toString().trim());
     }
     @Test
+    @DisplayName("test if the system out print is correct for the total of prime numbers")
     public void testPrintCount() {
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -48,8 +50,10 @@ class PrimeNumbersTest {
 
 
     @Test
+    @DisplayName("throws exception in case its lower than 0 or higher than a 1000")
     public void testIsPrimeThrowsException() {
         assertThrows(IllegalArgumentException.class, () -> primeNumbers.isPrime(-5));
+        assertThrows(IllegalArgumentException.class, () -> primeNumbers.isPrime(1200));
     }
 
     @Test
