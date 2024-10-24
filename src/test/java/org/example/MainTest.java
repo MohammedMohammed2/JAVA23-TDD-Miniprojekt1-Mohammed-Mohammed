@@ -1,8 +1,13 @@
 package org.example;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +19,26 @@ class MainTest {
     @DisplayName("given number is a prime number")
     public void testPrime() {
         assertTrue(main.isPrime(997), "this is  prime");
+    }
+    @Test
+    public void testPrintSum() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        main.printSum();
+        System.setOut(System.out);
+        assertEquals("the sum of all prime numbers is:76127", outContent.toString().trim());
+    }
+    @Test
+    public void testPrintCount() {
 
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        main.printCount();
+
+        System.setOut(System.out);
+
+        assertEquals("the total of all prime numbers within the range of 0 to 1000:168", outContent.toString().trim());
     }
 
     @Test
@@ -24,34 +48,22 @@ class MainTest {
         assertFalse(main.isPrime(4), "this is not prime");
     }
 
+
     @Test
-    @DisplayName("special cases")
-    public void testEdgeCases() {
-        assertFalse(main.isPrime(0), "0 is not a prime number");
-        assertFalse(main.isPrime(-1), " negative number arent prime numbers either");
+    public void testIsPrimeThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> main.isPrime(-5));
     }
 
-
     @Test
-    public void testAddPrimeNumbers() {
-        assertEquals(5, main.addedPrimeNumbers(3, 2));
-    }
-
-
-    @Test
-    @DisplayName("range tester and total prime checker")
+    @DisplayName("checking sum within range")
     public void testPrimeSumWithinRange() {
-        int sumOfPrimes = 0;
-        int primeCount = 0;
+        assertEquals(17, main.addedPrimeNumbers(0,10));
+        assertEquals(77,main.addedPrimeNumbers(0,20));
+    }
 
-        for (int i = 1; i <= 10; i++) {
-            if (main.isPrime(i)) {
-                sumOfPrimes = main.addedPrimeNumbers(i, sumOfPrimes);
-                primeCount++;
-            }
-        }
-
-        assertEquals(17, sumOfPrimes);
-        assertEquals(4, primeCount);
+    @Test
+    @DisplayName("checking count within range")
+    public void testPrimeCountWithInRange(){
+        assertEquals(4,main.countPrime(0,10));
     }
 }

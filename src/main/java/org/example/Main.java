@@ -10,45 +10,50 @@ public class Main {
     static int amountOfPimeNumbersWithInRange = 0;
 
     public static boolean isPrime(int num) {
-        int count = 0;
-        if (num < 2)
+
+        if (num < 0 || num > 1000){
+            throw new IllegalArgumentException("Number must be non-negative or above 1000");}
+
+        if (num <= 1){
             return false;
+        }
 
         for (int i = 2; i < num; i++) {
             if (num % i == 0)
                 return false;
         }
 
-
         return true;
     }
 
     public static int addedPrimeNumbers(int a, int b) {
+            int sum = 0;
 
-        return a + b;
-
-    }
-
-    public static void printSum(int sumOfPrimeNums) {
-        System.out.println("the sum of all prime numbers is:" + " " + sumOfPrimeNums + " " + "Prime numbers sum");
-    }
-
-    public static void printCount(int amountOfPimeNumbersWithInRange) {
-        System.out.println("the total of all prime numbers with in the range of 0 to 1000:" + " " + amountOfPimeNumbersWithInRange + " " + "prime numbers");
-    }
-
-    public static void main(String[] args) {
-
-        for (int i = 1; i <= 1000; i++) {
-
-            if (isPrime(i)) {
-                System.out.println(i);
-                sumOfPrimeNums = addedPrimeNumbers(i, previousPrimeNumber);
-                previousPrimeNumber = i;
-                amountOfPimeNumbersWithInRange++;
+            for (int i = a; i <= b; i++){
+                if (isPrime(i)){
+                    sum += i;
+                }
+            }
+            return sum;
+        }
+    public static int countPrime(int a, int b) {
+        int count = 0;
+        for (int i = a; i <= b; i++){
+            if (isPrime(i)){
+                count++;
             }
         }
-        printSum(sumOfPrimeNums);
-        printCount(amountOfPimeNumbersWithInRange);
+        return count;
+    }
+    public static void printSum() {
+        System.out.println("the sum of all prime numbers is:" + addedPrimeNumbers(0,1000) );
+    }
+    public static void printCount() {
+        System.out.println("the total of all prime numbers within the range of 0 to 1000:"+ countPrime(0,1000));
+    }
+    public static void main(String[] args) {
+        printCount();
+        printSum();
+
     }
 }
